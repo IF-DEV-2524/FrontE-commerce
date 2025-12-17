@@ -1,0 +1,84 @@
+#root {
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 2rem;
+    text-align: center;
+}
+
+.containerHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    background-color: aliceblue;
+}
+
+.containerNavigate {
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+    cursor: pointer;
+    width: 500px;
+    height: 50px;
+
+}
+
+.listNavigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.btnBag,
+.btnPayment,
+.btnConfirmation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: black;
+    opacity: .5;
+}
+
+.btnBag:hover,
+.btnPayment:hover,
+.btnConfirmation:hover {
+    opacity: 1;
+    color: black;
+}
+
+.btnBag.active,
+.btnPayment.active,
+.btnConfirmation.active {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.listNavigation {
+    display: flex;
+    list-style: none;
+    width: 25%;
+    margin: 0px;
+}
+
+.lineBag,
+.linePayment,
+.lineConfirmation {
+    width: 100%;
+    border-top: 1px solid black;
+    transform: scaleY(1.5);
+    border-left: none;
+    border-right: none;
+    margin: 0px;
+    padding: 0px;
+    opacity: .5;
+}
+
+.lineBag.active,
+.linePayment.active,
+.lineConfirmation.active {
+    transition: .5s;
+    transform: scaleY(5);
+    opacity: 1;
+}

@@ -1,0 +1,21 @@
+.containerMain{
+    display: flex;
+    width: 100%;
+    height: max-content;
+    background-color: #E3E3E3
+}
+
+.infoMain{
+    margin: 30px auto;
+    width: 95%;
+    height: 420px;
+    /* max-height: max-content; */
+    background-color: aliceblue;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+/*Excluir, ela é apenas para teste*/.texto{
+color: black;
+}
