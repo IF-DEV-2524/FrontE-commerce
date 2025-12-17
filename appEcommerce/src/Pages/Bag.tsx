@@ -35,7 +35,6 @@ const localImageMap: { [key: string]: string } = {
 
 function Bag() {
     const [products, setProducts] = useState<ProductInItems[]>([]);
-    const [totals, setTotals] = useState<{ gross: string; net: string } | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -49,18 +48,14 @@ function Bag() {
                 const response = await api.get('/bags');
                 const data: BagResponse[] = response.data;
 
-                // 2. Acesso ao primeiro item do Array [0]
+                // Acesso ao primeiro item do Array [0] cada pessoa só possui uma sacola por compra
                 if (data && data.length > 0) {
                     const bagObject = data[0];
 
-                    // 3. Parse da string 'items' para Array de objetos
+                    //'items' para Array de objetos
                     const parsedItems: ProductInItems[] = JSON.parse(bagObject.items);
 
                     setProducts(parsedItems);
-                    setTotals({
-                        gross: bagObject.total_gross_amount,
-                        net: bagObject.total_net_amount
-                    });
                 } else {
                     setProducts([]);
                 }
@@ -87,6 +82,8 @@ function Bag() {
                 <div className='infoProduct'>
                     {products.map((item) => {
                         const imageSrc = localImageMap[item.nm_product] || '';
+
+                        // formata de acordo com a moeda
                         const priceFormatted = new Intl.NumberFormat('pt-BR', {
                             style: 'currency',
                             currency: 'BRL',
@@ -94,15 +91,10 @@ function Bag() {
 
                         return (
                             <div key={item.id} className='productItem'>
-                                <img
-                                    className='productsImg'
-                                    src={imageSrc}
-                                    alt={item.nm_product}
+                                <img className='productsImg'src={imageSrc} alt={item.nm_product}
                                 />
-
                                 <p className='productDescription'>{item.description}</p>
                                 <p className='productPrice'>{priceFormatted}</p>
-
                             </div>
                         );
                     })}
