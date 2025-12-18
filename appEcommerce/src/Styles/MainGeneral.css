@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     height: max-content;
-    background-color: #E3E3E3
+    background-color: #F5F5F5
 }
 
 .infoMain{
@@ -10,7 +10,7 @@
     width: 95%;
     height: 420px;
     /* max-height: max-content; */
-    background-color: aliceblue;
+    background-color: #FFFFFF;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(0, 0, 0, 0.3);
     overflow-y: auto;

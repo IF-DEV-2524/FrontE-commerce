@@ -1,0 +1,36 @@
+.containerFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    background-color: #FFFFFF;
+}
+
+
+.returnSinteticBag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 96%;
+    height: 500px;
+    gap: 15px;
+}
+
+#descount{
+    color: #9222DC;
+    font-weight: 500;
+}
+
+.buttonFollow {
+    width: 95%;
+    height: 75px;
+    color: white;
+    font-weight: bold;
+    font-size: x-large;
+    -webkit-text-stroke-width: thin !important;
+    background-color: #9222DC;
+    opacity: 1 !important;
+}
