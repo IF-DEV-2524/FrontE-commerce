@@ -1,24 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../Styles/Header.css';
-import api from '../Services/Api'
+
 
 
 // 1. Tipagem (TSX): Define os IDs válidos para o estado,
 type NavLinkID = 'bag' | 'payment' | 'confirmation' | '';
 
 function Header(){
-const [products, setProducts] = useState([])
-
-async function getProducts() {
-  const response = await api.get('/products');
-  setProducts(response.data); // <-- aqui está o dado de verdade
-  console.log(products)
-}
-
-useEffect(() => {
-  getProducts();
-}, []);
 
 useEffect(() => {
   // Função que escuta o evento disparado pelo outro componente

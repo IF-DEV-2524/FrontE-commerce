@@ -11,12 +11,13 @@
     align-items: center;
     width: 100%;
     height: max-content;
-    background-color: aliceblue;
+    background-color: #FFFFFF;
 }
 
 .containerNavigate {
     display: flex;
     margin: 0px;
+    padding: 0px;
     justify-content: center;
     cursor: pointer;
     width: 500px;

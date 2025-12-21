@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import api from '../Services/Api';
 import { Link } from 'react-router-dom';
+import BagFooterGeneral from '../Components/BagFooterGeneral';
 
 import '../Styles/MainGeneral.css';
 import '../Styles/Footer.css';
 import '../Styles/Erro.css';
 import '../Styles/BagStyle/BagMain.css';
-import '../Styles/BagStyle/BagFooter.css';
 
 import creme from '../Images/Products/Mascara Facial.png';
 import mascara from '../Images/Products/Mascara de Reconstrução.png';
@@ -37,38 +37,12 @@ const localImageMap: { [key: string]: string } = {
 
 function Bag() {
     const [products, setProducts] = useState<ProductInItems[]>([]);
+    
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
-    // Função para formatar valores monetários
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        }).format(value);
-    };
-
-    // Cálculos automáticos baseados no estado 'products'
-    const totals = useMemo(() => {
-        return products.reduce((acc, item) => {
-            const qtd = Number(item.qtd) || 0;
-            const price = Number(item.gross_amount) || 0;
-            const shipping = Number(item.shipping) || 0;
-            const fee = Number(item.fee_amount) || 0;
-
-            return {
-                totalItems: acc.totalItems + qtd,
-                subtotal: acc.subtotal + (price * qtd),
-                totalShipping: acc.totalShipping + shipping,
-                totalFees: acc.totalFees + fee
-            };
-        }, { totalItems: 0, subtotal: 0, totalShipping: 0, totalFees: 0 });
-    }, [products]);
-
-    const handleFollowPayment = () => {
-        const event = new CustomEvent('updateHeader', { detail: 'payment' });
-        window.dispatchEvent(event);
-    };
+    let loadingBag = null
+    let loadingBagEmpty = null
+    let erroBag = null
 
     useEffect(() => {
         const fetchBag = async () => {
@@ -86,7 +60,6 @@ function Bag() {
                     setProducts([]);
                 }
             } catch (err) {
-                console.error("Erro ao buscar bag:", err);
                 setError("Não foi possível carregar sua sacola.");
             } finally {
                 setLoading(false);
@@ -96,16 +69,32 @@ function Bag() {
         fetchBag();
     }, []);
 
-    if (loading) return <div className="loadingMessage">Carregando sua sacola...</div>;
-    if (error) return <div className="errorMessage">{error}</div>;
-    if (products.length === 0) return <div className="emptyBag">Sua sacola está vazia.</div>;
+
+    if (error) erroBag = <div className="errorMessage">{error}</div>;
+
+    if (loading) loadingBag = <div className="loadingMessage">Carregando sua sacola...</div>;
+
+
+    if (products.length === 0 && error?.length === 0) loadingBagEmpty = <div className="emptyBag">Sua sacola está vazia.</div>;
+
+    const handleFollowPayment = () => {
+        const event = new CustomEvent('updateHeader', { detail: 'payment' });
+        window.dispatchEvent(event);
+    };
 
     return (
         <>
             <main className="containerMain">
+
                 <section className='infoMain' id='infoMainBag'>
+
                     <div className='infoProduct'>
+
+                        <div className='errorMessage'>{loadingBag}{loadingBagEmpty}{erroBag}</div>
+                        
+                        
                         {products.map((item) => {
+
                             const imageSrc = localImageMap[item.nm_product] || '';
 
                             // formata de acordo com a moeda
@@ -115,39 +104,26 @@ function Bag() {
                             }).format(Number(item.gross_amount));
 
                             return (
+
                                 <div key={item.id} className='productItem'>
-                                    <img className='productsImg' src={imageSrc} alt={item.nm_product}
-                                    />
+
+                                    <img className='productsImg' src={imageSrc} alt={item.nm_product} />
+                                    
                                     <p className='productDescription'>{item.description}</p>
+                                    
                                     <p className='productPrice'>{priceFormatted}</p>
+                                
                                 </div>
                             );
                         })}
                     </div>
                 </section>
             </main>
-
             <footer className='containerFooter'>
                 <div className='returnSinteticBag'>
-                    <div className="summaryRow">
-                        <p className='infoSintetic'>Produtos ({totals.totalItems} itens):</p>
-                        <span>{formatCurrency(totals.subtotal)}</span>
-                    </div>
 
-                    <div className="summaryRow">
-                        <p className='infoSintetic'>Frete:</p>
-                        <span>{formatCurrency(totals.totalShipping)}</span>
-                    </div>
-
-                    <div className="summaryRow">
-                        <p className='infoSintetic' >Descontos:</p>
-                        <span id='descount'>{formatCurrency(totals.totalFees)}</span>
-                    </div>
-
-                    <div className="summaryTotal">
-                        <strong>Subtotal:</strong>
-                        <strong>{formatCurrency((totals.subtotal + totals.totalShipping) - totals.totalFees)}</strong>
-                    </div>
+                    {/* utiliza o componente padrão do footer */}
+                    <BagFooterGeneral products={products} />
 
                     <Link to={'/payment'} onClick={handleFollowPayment} className="btnPayment buttonFollow">
                         Seguir para o Pagamento

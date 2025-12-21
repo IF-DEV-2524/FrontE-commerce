@@ -1,6 +1,7 @@
 .errorMessage{
     color: black;
-    background-color: aliceblue;
+    font-size: larger;
+    background-color: #fffffff5 !important;
     margin: 0 auto;
     padding: 0;
 }

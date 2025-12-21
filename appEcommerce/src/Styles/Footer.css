@@ -8,15 +8,42 @@
     background-color: #FFFFFF;
 }
 
-
 .returnSinteticBag {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 96%;
+    width: 94%;
     height: 500px;
     gap: 15px;
+}
+
+.summaryRow {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 15px;
+    font-size: large;
+    font-weight: 400;
+    color: black;
+}
+
+.infoSintetic{
+    margin: 0px;
+}
+
+.summaryTotal{
+    display: flex;
+    width: 96%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 15px;
+    font-size: large;
+    font-weight: 100;
+    font-family: 'Inter';
+    -webkit-text-stroke-width: medium;
+    color: black;
 }
 
 #descount{
